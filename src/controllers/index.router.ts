@@ -15,7 +15,7 @@ router.get("/filteredimage", async (req: Request, res: Response) => {
     try {
         filteredImagePath = await filterImageFromURL(image_url);
     } catch(error) {
-        return res.status(409).send({message: "Error in filtering image"});
+        return res.status(422).send({message: "Error in filtering image"});
     }
 
     res.download(filteredImagePath, async (error) => {
@@ -26,7 +26,7 @@ router.get("/filteredimage", async (req: Request, res: Response) => {
         try {
           await deleteLocalFiles([filteredImagePath]);
         } catch (err) {
-          
+          console.log(err);
         }
       });
 });
